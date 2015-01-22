@@ -1,0 +1,21 @@
+{
+  "name": "node-jstransform",
+  "version": "1.0.0",
+  "description": "Transforms ES6 into ES5 on node using jstransform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jstransform",
+    "node",
+    "require",
+    "loader",
+    "es6"
+  ],
+  "author": "Josh Perez <josh@goatslacker.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jstransform": "^8.2.0"
+  }
+}
