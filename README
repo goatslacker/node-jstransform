@@ -1,0 +1,10 @@
+Usage
+
+npm install node-jstransform
+
+require('node-jstransform').install({
+  // visitors is optional.
+  visitors: [
+    require('jstransform/visitors/es6-arrow-function-visitors')
+  ]
+})
