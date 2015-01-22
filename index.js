@@ -12,7 +12,7 @@ function install(opts) {
   }
 
   var visitors = (opts.visitors || []).reduce(function (visitors, visitor) {
-    return visitors.concat(visitor.visitorList)
+    return visitors.concat(visitor.visitorList || visitor)
   }, [])
 
   require.extensions['.js'] = function (module, filename) {
