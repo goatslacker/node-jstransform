@@ -4,18 +4,24 @@ var fs = require('fs')
 var js = require.extensions['.js']
 var jstransform = require('jstransform')
 
-var installed = false
+var installed = {}
 
 function install(opts) {
-  if (installed) {
-    return
-  }
-
   var visitors = (opts.visitors || []).reduce(function (visitors, visitor) {
     return visitors.concat(visitor.visitorList || visitor)
   }, [])
 
-  require.extensions['.js'] = function (module, filename) {
+  var extensions = opts.extensions || ['.js']
+
+  extensions.forEach(addExtension)
+}
+
+function addExtension(ext) {
+  if (installed[ext]) {
+    return
+  }
+
+  require.extensions[ext] = function (module, filename) {
     if (filename.match(/node_modules/)) {
       return js(module, filename)
     }
@@ -26,5 +32,5 @@ function install(opts) {
     return module._compile(after, filename)
   }
 
-  installed = true
+  installed[ext] = true
 }
