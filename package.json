@@ -1,6 +1,6 @@
 {
   "name": "node-jstransform",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Transforms ES6 into ES5 on node using jstransform",
   "main": "index.js",
   "scripts": {
