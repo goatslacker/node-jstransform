@@ -13,24 +13,27 @@ function install(opts) {
 
   var extensions = opts.extensions || ['.js']
 
-  extensions.forEach(addExtension)
+  extensions.forEach(addExtension(visitors))
 }
 
-function addExtension(ext) {
-  if (installed[ext]) {
-    return
-  }
-
-  require.extensions[ext] = function (module, filename) {
-    if (filename.match(/node_modules/)) {
-      return js(module, filename)
+function addExtension(visitors) {
+  return function (ext) {
+    if (installed[ext]) {
+      return
     }
 
-    var before = fs.readFileSync(filename, 'utf8')
-    var after = jstransform.transform(visitors, before).code
+    require.extensions[ext] = function (module, filename) {
+      if (filename.match(/node_modules/)) {
+        return js(module, filename)
+      }
 
-    return module._compile(after, filename)
+      var before = fs.readFileSync(filename, 'utf8')
+      var after = jstransform.transform(visitors, before).code
+
+      return module._compile(after, filename)
+    }
+
+    installed[ext] = true
   }
-
-  installed[ext] = true
 }
+
